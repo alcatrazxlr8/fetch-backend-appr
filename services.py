@@ -6,18 +6,8 @@ from storage import receipts_db, points_db
 
 def handle_receipt_submission(receipt: Receipt) -> str:
 
-	if not receipt.retailer.strip():
-		raise HTTPException(status_code=400, detail="Retailer name empty")
-
-	if not receipt.items or not all(item.shortDescription.strip() and item.price for item in receipt.items):
-		raise HTTPException(status_code=400, detail="Invalid/missing items")
-	
-	try:
-		float(receipt.total)
-		for item in receipt.items:
-			float(item.price)
-	except ValueError:
-		raise HTTPException(status_code=400, detail="Price/Total is not a valid float")
+	if not receipt.items:
+		raise HTTPException(status_code=400, detail="Receipt must contain at least 1 item")
 	
 	receipt_id = str(uuid4())
 	points = calculate_points(receipt)
