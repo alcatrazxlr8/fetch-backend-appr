@@ -9,5 +9,5 @@ class Receipt(BaseModel):
 	retailer: str = Field(pattern=r'^[\w\s\-&]+$')
 	purchaseDate: str = Field(pattern=r'^\d{4}-\d{2}-\d{2}$')  # ISO date
 	purchaseTime: str = Field(pattern=r'^\d{2}:\d{2}$')      # 24-hour time
-	items: List[Item]
+	items: List[Item] = Field(min_length=1)
 	total: str = Field(pattern=r'^\d+\.\d{2}$')

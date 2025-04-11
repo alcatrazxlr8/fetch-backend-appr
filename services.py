@@ -6,9 +6,6 @@ from storage import receipts_db, points_db
 
 def handle_receipt_submission(receipt: Receipt) -> str:
 
-	if not receipt.items:
-		raise HTTPException(status_code=400, detail="Receipt must contain at least 1 item")
-	
 	receipt_id = str(uuid4())
 	points = calculate_points(receipt)
 
