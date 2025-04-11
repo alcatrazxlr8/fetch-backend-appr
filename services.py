@@ -1,5 +1,4 @@
 from uuid import uuid4
-from fastapi import HTTPException
 from models import Receipt
 from points import calculate_points
 from storage import receipts_db, points_db
