@@ -6,6 +6,10 @@ from points import calculate_points
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "Fetch Backend Apprenticeship Assessment"}
+
 @app.post("/receipts/process")
 async def process_receipt(receipt: Receipt):
 	id = str(uuid4())
