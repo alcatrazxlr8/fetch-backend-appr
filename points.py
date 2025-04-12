@@ -10,16 +10,20 @@ def calculate_points(receipt: Receipt) -> int:
 		if char.isalnum():
 			points += 1
 
+
 	# Rule 2: Total amt is a round figure ("35", "35.00")
 	if float(receipt.total) % 1 == 0:
 		points += 50
+
 
 	# Rule 3: Total amt is multiple of 0.25
 	if float(receipt.total) % 0.25 == 0:
 		points += 25
 
+
 	# Rule 4: 5 points for every 2 items
 	points += 5 * (len(receipt.items) // 2)
+
 
 	# Rule 5: Item description is multiple of 3
 	for item in receipt.items:
@@ -27,12 +31,14 @@ def calculate_points(receipt: Receipt) -> int:
 		if len(item.shortDescription.strip()) % 3 == 0:
 			points += math.ceil(price * 0.2)
 
+
 	# Rule 6: Purchased on odd day
-	date = receipt.purchaseDate
+	date = str(receipt.purchaseDate)
 	date = datetime.strptime(date, "%Y-%m-%d").date()
 	receiptDay = date.day
 	if receiptDay % 2 == 1:
 		points += 6
+
 
 	# Rule 7: Purchased during a certain time window
 	time = receipt.purchaseTime # time on receipt
@@ -46,4 +52,5 @@ def calculate_points(receipt: Receipt) -> int:
 	if (timeLowerBound < time < timeUpperBound):
 		points += 10
 
+	# Total Points
 	return points

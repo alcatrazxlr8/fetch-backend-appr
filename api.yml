@@ -76,7 +76,7 @@ components:
                     description: The date of the purchase printed on the receipt.
                     type: string
                     format: date
-                    example: "2022-01-01"
+                    example: "2022-01-01" # yyyy-mm-dd
                 purchaseTime:
                     description: The time of the purchase printed on the receipt. 24-hour time expected.
                     type: string
