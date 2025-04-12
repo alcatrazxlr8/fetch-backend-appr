@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from datetime import date
 from typing import List
 
 class Item(BaseModel):
@@ -7,7 +8,7 @@ class Item(BaseModel):
 
 class Receipt(BaseModel):
 	retailer: str = Field(pattern=r'^[\w\s\-&]+$')
-	purchaseDate: str = Field(pattern=r'^\d{4}-\d{2}-\d{2}$')  # ISO date
-	purchaseTime: str = Field(pattern=r'^\d{2}:\d{2}$')      # 24-hour time
+	purchaseDate: date # date
+	purchaseTime: str = Field(pattern=r'^(?:[01]\d|2[0-3]):[0-5]\d$') # 24-hour time
 	items: List[Item] = Field(min_length=1)
 	total: str = Field(pattern=r'^\d+\.\d{2}$')
