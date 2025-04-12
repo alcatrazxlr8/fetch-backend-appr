@@ -10,12 +10,12 @@ app = FastAPI()
 
 # Landing page
 @app.get("/")
-async def root():
+def root():
 	return {"message": "Fetch Backend Apprenticeship Assessment"}
 
 # Receipt Processing Endpoint
 @app.post("/receipts/process")
-async def process_receipt(receipt: Receipt):
+def process_receipt(receipt: Receipt):
 	try:
 		receipt_id = handle_receipt_submission(receipt)
 		return {"id": receipt_id}
@@ -23,7 +23,7 @@ async def process_receipt(receipt: Receipt):
 		raise e
 
 @app.get("/receipts/{id}/points")
-async def get_points(id: str):
+def get_points(id: str):
 	if id not in receipts_db:
 		raise HTTPException(status_code=404, detail="No receipt found for that ID.")
 	return {"points": points_db[id]}
