@@ -8,7 +8,7 @@ This project was built for the Fetch Backend Apprenticeship assessment using Pyt
 
 ## Technical Highlights
 
-- **Robust Input Validation**  
+- **Input Validation**  
   All request bodies are validated using Pydantic with strict type checking and custom regex to ensure format compliance with the OpenAPI specification.
 
 - **Custom Error Handling**  
@@ -165,7 +165,24 @@ Data does not need to persist when your application stops. It is sufficient to s
 * Path: `/receipts/process`
 * Method: `POST`
 * Payload: Receipt JSON
+```json
+{
+  "retailer": "M&M Corner Market",
+  "purchaseDate": "2022-03-20",
+  "purchaseTime": "14:33",
+  "items": [
+    { "shortDescription": "Gatorade", "price": "2.25" },
+    { "shortDescription": "Gatorade", "price": "2.25" },
+    { "shortDescription": "Gatorade", "price": "2.25" },
+    { "shortDescription": "Gatorade", "price": "2.25" }
+  ],
+  "total": "9.00"
+}
+```
 * Response: JSON containing an id for the receipt.
+```json
+{ "points": 32 }
+```
 
 Description:
 
