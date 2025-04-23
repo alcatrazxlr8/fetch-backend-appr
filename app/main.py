@@ -24,11 +24,8 @@ def process_receipt(receipt: Receipt):
 	"""
 	Submits a receipt for processing.
 	"""
-	try:
-		receipt_id = handle_receipt_submission(receipt)
-		return {"id": receipt_id}
-	except HTTPException as e:
-		raise e
+	receipt_id = handle_receipt_submission(receipt)
+	return {"id": receipt_id}
 
 
 @app.get("/receipts/{id}/points",
