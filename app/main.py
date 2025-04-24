@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.exceptions import RequestValidationError
 
 from app.models import Receipt
-from app.storage import receipts_db, points_db
+from app.storage import receipts_db, points_db, users
 from app.services import handle_receipt_submission
 
 app = FastAPI(
@@ -19,12 +19,18 @@ def root():
 
 
 # Receipt Processing Endpoint
-@app.post("/receipts/process", summary="Submits a receipt for processing.")
-def process_receipt(receipt: Receipt):
+@app.post("/{user}/receipts/process", summary="Submits a receipt for processing.")
+def process_receipt(user: str, receipt: Receipt):
 	"""
 	Submits a receipt for processing.
 	"""
-	receipt_id = handle_receipt_submission(receipt)
+	## user exists
+	if user not in users:
+		users[user] = 1
+	else:
+		users[user] += 1
+
+	receipt_id = handle_receipt_submission(receipt, user)
 	return {"id": receipt_id}
 
 

@@ -2,9 +2,22 @@ import math
 from datetime import datetime
 
 from app.models import Receipt
+from app.storage import users
 
-def calculate_points(receipt: Receipt) -> int: 
+def calculate_points(receipt: Receipt, user:str) -> int: 
 	points = 0
+
+	# Rule for new user rewards
+	## count = 1 -> 1000
+	## count = 2 -> 500	
+	## counr = 3 -> 250
+	count = users[user]
+	if count == 1:
+		points += 1000
+	elif count == 2:
+		points += 500
+	elif count == 3:
+		points += 250
 
 	# Rule 1: Alphanum chars in retailer name
 	for char in receipt.retailer:
